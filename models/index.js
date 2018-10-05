@@ -1,3 +1,3 @@
 module.exports = {
-  Guess: require("./guess")
+  Guest: require("./guest")
 };

@@ -1,20 +1,17 @@
 const mongoose = require("mongoose");
 const db = require("../models");
-convertExcel = require('excel-as-json').processFile;
+convertExcel = require("excel-as-json").processFile;
 // This file empties the Books collection and inserts the books below
 const fileName = process.argv[2];
 console.log(fileName);
 
 convertExcel(fileName, null, null, (err, guestSeed) => {
-
   if (err) {
     throw err;
   } else {
     guestSeed.forEach(guest => {
       db.Guest.create(guest)
-        .then(dbGuest => {
-
-        })
+        .then(dbGuest => {})
         .catch(err => {
           throw err;
         });
@@ -32,8 +29,6 @@ convertExcel(fileName, null, null, (err, guestSeed) => {
   }
 });
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/project-3");
-
-
 
 // const guestSeed = [
 //   {
@@ -77,5 +72,3 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/project-3");
 //     birthday: "3/16/1995"
 //   }
 // ];
-
-
