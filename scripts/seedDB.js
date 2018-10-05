@@ -3,35 +3,48 @@ const db = require("../models");
 
 // This file empties the Books collection and inserts the books below
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist"
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/project-3");
 
 const guessSeed = [
   {
-    lastName: "",
-    firstName: "",
-    birthday: new Date(Date.now())
+    lastName: "Abern",
+    firstName: "Andrew",
+    gender: "Male",
+    phone: "847-436-9123",
+    role: "participant",
+    birthday: "5/15/1994"
   },
   {
-    lastName: "",
-    firstName: "",
-    birthday: new Date(Date.now())
+    lastName: "Babajoni",
+    firstName: "Kevin",
+    gender: "Male",
+    phone: "847-338-0445",
+    role: "participant",
+    birthday: "9/26/1995"
   },
   {
-    lastName: "",
-    firstName: "",
-    birthday: new Date(Date.now())
+    lastName: "Berg Einhorn",
+    firstName: "Benjamin",
+    gender: "Male",
+    phone: "847-436-9123",
+    role: "participant",
+    birthday: "6/2/1995"
   },
   {
-    lastName: "",
-    firstName: "",
-    birthday: new Date(Date.now())
+    lastName: "Block",
+    firstName: "Molly",
+    gender: "Female",
+    phone: "773-320-0471",
+    role: "participant",
+    birthday: "7/4/1993"
   },
   {
-    lastName: "",
-    firstName: "",
-    birthday: new Date(Date.now())
+    lastName: "Berkowitz",
+    firstName: "Kayla",
+    gender: "Female",
+    phone: "732-403-7118",
+    role: "participant",
+    birthday: "3/16/1995"
   }
 ];
 
