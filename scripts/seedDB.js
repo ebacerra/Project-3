@@ -9,24 +9,24 @@ convertExcel(fileName, null, null, (err, guestSeed) => {
   if (err) {
     throw err;
   } else {
-    guestSeed.forEach(guest => {
-      db.Guest.create(guest)
-        .then(dbGuest => {})
-        .catch(err => {
-          throw err;
-        });
-    });
-    db.Guest.remove({})
-      .then(() => db.Guest.collection.insertMany(guestSeed))
-      .then(data => {
-        console.log(data.result.n + " records inserted!");
-        process.exit(0);
-      })
+    guestSeed.slice(-1);
+    console.log(guestSeed);
+    db.Guest.insertMany(guestSeed)
+      .then()
       .catch(err => {
-        console.error(err);
-        process.exit(1);
+        throw err;
       });
   }
+  // db.Guest.remove({})
+  //   .then(() => db.Guest.collection.insertMany(guestSeed))
+  //   .then(data => {
+  //     console.log(data.result.n + " records inserted!");
+  //     process.exit(0);
+  //   })
+  //   .catch(err => {
+  //     console.error(err);
+  //     process.exit(1);
+  //   });
 });
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/project-3");
 
