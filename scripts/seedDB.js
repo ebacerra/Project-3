@@ -11,6 +11,7 @@ convertExcel(fileName, null, null, (err, guestSeed) => {
   } else {
     guestSeed.slice(-1);
     console.log(guestSeed);
+    db.Guest.drop();
     db.Guest.insertMany(guestSeed)
       .then()
       .catch(err => {
