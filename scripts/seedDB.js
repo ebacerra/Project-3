@@ -5,13 +5,13 @@ convertExcel = require("excel-as-json").processFile;
 const fileName = process.argv[2];
 console.log(fileName);
 
-convertExcel(fileName, null, null, (err, guestSeed) => {
+convertExcel(fileName, null, null, (err, participantsSeed) => {
   if (err) {
     throw err;
   } else {
-    guestSeed.slice(-1);
-    console.log(guestSeed);
-    db.Guest.insertMany(guestSeed)
+    participantsSeed.slice(-1);
+    console.log(participantsSeed);
+    db.Participant.insertMany(participantsSeed)
       .then()
       .catch(err => {
         throw err;
