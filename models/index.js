@@ -1,3 +1,3 @@
 module.exports = {
-  Guest: require("./guest")
+  Participant: require("./participant")
 };
