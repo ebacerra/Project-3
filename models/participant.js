@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const guestSchema = new Schema({
+const participantSchema = new Schema({
   lastName: { type: String, required: true },
   firstName: { type: String, required: true },
   gender: { type: String, required: true },
@@ -10,6 +10,6 @@ const guestSchema = new Schema({
   birthday: { type: Date, default: Date.now }
 });
 
-const Guest = mongoose.model("Guess", guestSchema);
+const Participant = mongoose.model("Participant", participantSchema);
 
-module.exports = Guest;
+module.exports = Participant;
