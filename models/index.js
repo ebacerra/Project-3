@@ -1,3 +1,5 @@
 module.exports = {
-  Participant: require("./participant")
+  Participant: require("./participant"),
+  Room: require("./room"),
+  News: require("./news")
 };
