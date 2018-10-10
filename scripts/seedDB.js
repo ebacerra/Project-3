@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const db = require("../models");
 convertExcel = require("excel-as-json").processFile;
-// This file empties the Books collection and inserts the books below
+
+
 const fileName = process.argv[2];
 console.log(fileName);
 
