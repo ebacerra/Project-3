@@ -8,7 +8,11 @@ const participantSchema = new Schema({
   gender: { type: String, required: true },
   phone: { type: String, required: true },
   role: { type: String, required: true },
-  birthday: { type: Date, default: Date.now }
+  birthday: { type: Date, default: Date.now },
+  room: {
+    type: Schema.Types.ObjectId,
+    ref: "Room"
+  }
 });
 
 const Participant = mongoose.model("Participant", participantSchema);
