@@ -2,7 +2,7 @@ const db = require("../models");
 const CAPACITY = 4;
 module.exports = {
   findAll: function (req, res) {
-    db.Participant.find(req.query)
+    db.Participant.find()
       .sort({ lastName: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
