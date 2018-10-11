@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const participantController = require("../../controllers/participantController");
+const participantController = require("../../controllers/participantController.js");
 
 // Matches with "/api/participants"
 router
@@ -8,7 +8,7 @@ router
   .post(participantController.create);
 
 router
-  .route("/assignRooms")
+  .route("/assignRooms/:gender")
   .post(participantController.assignRooms);
 
 

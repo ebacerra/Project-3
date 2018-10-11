@@ -1,5 +1,6 @@
 const db = require("../models");
 const CAPACITY = 4;
+
 module.exports = {
   findAll: function (req, res) {
     db.Participant.find(req.query)
@@ -29,7 +30,8 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   assignRooms: function (req, res) {
-    let gender = req.params.gender;
+    console.log("assignRooms route called!!");
+    let gender = req.params.gender.toLowerCase();
     db.Participant.find({ gender: gender })
       .then(dbParticipants => {
         let n = dbParticipants.length;
@@ -37,6 +39,7 @@ module.exports = {
         if (n % CAPACITY > 0) {
           numRooms++;
         }
+        console.log(`Participants: ${n} Rooms: ${numRooms}`);
         let visitors = [];
         let locals = [];
         //separate locals from visitors in two arrays
@@ -50,13 +53,15 @@ module.exports = {
               break;
           }
         });
+
         let rooms = [];
         let dbRooms;
         //create rooms in the database
         for (let i = 0; i < numRooms; i++) {
           rooms.push({ roomNumber: i, gender: gender, participants: [] });
         }
-        db.Room.create(rooms)
+
+        db.Room.create(rooms)//insertmany
           .then(data => {
             dbRooms = data;
             //distribute participants to rooms
@@ -71,7 +76,7 @@ module.exports = {
               });
             });
             dbRooms = distributeVisitors(visitors, dbRooms);
-            
+
           })
           .catch(err => {
             throw err;
