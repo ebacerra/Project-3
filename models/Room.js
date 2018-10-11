@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const roomSchema = new Schema({
     roomNumber: { type: String, required: true },
     gender: { type: String, required: true },
-    phone: { type: String, required: true }
     participants: [
         {
             type: Schema.Types.ObjectId,

@@ -3,8 +3,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
+const session = require('express-session')
 const PORT = process.env.PORT || 3001;
 
+app.use(
+  session({
+    secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
+    resave: false, //required
+    saveUninitialized: false //required
+  })
+)
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
