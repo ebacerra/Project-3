@@ -1,5 +1,5 @@
 const db = require("../models");
-
+const CAPACITY = 4;
 module.exports = {
   findAll: function (req, res) {
     db.Participant.find(req.query)
@@ -33,8 +33,8 @@ module.exports = {
     db.Participant.find({ gender: gender })
       .then(dbParticipants => {
         let n = dbParticipants.length;
-        let numRooms = n / 4;
-        if (n % 4 > 0) {
+        let numRooms = n / CAPACITY;
+        if (n % CAPACITY > 0) {
           numRooms++;
         }
         let visitors = [];
@@ -51,18 +51,31 @@ module.exports = {
           }
         });
         let rooms = [];
+        let dbRooms;
+        //create rooms in the database
         for (let i = 0; i < numRooms; i++) {
-          rooms.push({ participants: [] });
+          rooms.push({ roomNumber: i, gender: gender, participants: [] });
         }
-        distributelocals(locals, rooms);
-        distributeVisitors(visitors, rooms);
-        // //distribute locals
-        // dbParticipants.forEach(participant => {
-        //     for(let i=0; i<rooms.length;i++){
-        //       if (rooms[i].participants<4){
-        //         rooms[i].participants.push(participant);
-        //       }
-        //     }
+        db.Room.create(rooms)
+          .then(data => {
+            dbRooms = data;
+            //distribute participants to rooms
+            dbRooms = distributelocals(locals, dbRooms);
+            //loop on locals to update room info
+            locals.forEach(local => {
+              //loop on rooms to find the local person's room
+              dbRooms.forEach(dbRoom => {
+                if (dbRoom.participants.includes(local)) {
+                  local.room = dbRoom;
+                }
+              });
+            });
+            dbRooms = distributeVisitors(visitors, dbRooms);
+            
+          })
+          .catch(err => {
+            throw err;
+          });
 
       })
       .catch(err => res.status(422).json(err));
@@ -71,16 +84,28 @@ module.exports = {
 };
 
 function distributelocals(locals, rooms) {
-  locals.forEach((local) => {
+  let = shallowCloneArr(rooms);
+  let localsClone = shallowCloneArr(locals);
+  localsClone.forEach((local) => {
     let i = 0;
-    for (i = 0; i < newRooms; i++) {
+    for (i = 0; i < roomsClone.length; i++) {
       rooms[i].participants.push(local);
     }
   });
+  return rooms;
 }
 
 function distributeVisitors(visitors, rooms) {
-  //to be implemented
+  let roomsClone = shallowCloneArr(rooms);
+  let visitorsClone = shallowCloneArr(visitors);
+  roomsClone.forEach(room => {
+    let space = CAPACITY - room.participants.length;
+    for (let i = 0; i < space; i++) {
+      visitor = visitorsClone.shift();
+      room.participants.push(visitor);
+    }
+  });
+  return rooms;
 }
 
 function shallowCloneArr(arr) {
