@@ -5,31 +5,36 @@ import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn, Select} from "../../components/Form";
+import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 
-class Books extends Component {
+class Participant extends Component {
   state = {
-    books: [],
+    participant: [],
     title: "",
     author: "",
     synopsis: ""
   };
 
   componentDidMount() {
-    this.loadBooks();
+    this.loadParticipant();
   }
 
-  loadBooks = () => {
-    API.getBooks()
+  loadParticipant = () => {
+    API.getParticipant()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({
+          participant: res.data,
+          title: "",
+          author: "",
+          synopsis: ""
+        })
       )
       .catch(err => console.log(err));
   };
 
-  deleteBook = id => {
-    API.deleteBook(id)
-      .then(res => this.loadBooks())
+  deleteParticipant = id => {
+    API.deleteParticipant(id)
+      .then(res => this.loadParticipant())
       .catch(err => console.log(err));
   };
 
@@ -42,13 +47,13 @@ class Books extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
+    if (this.state.title && this.state.participant) {
+      API.saveParticipant({
         title: this.state.title,
         author: this.state.author,
         synopsis: this.state.synopsis
       })
-        .then(res => this.loadBooks())
+        .then(res => this.loadParticipant())
         .catch(err => console.log(err));
     }
   };
@@ -68,7 +73,7 @@ class Books extends Component {
                 name="firstname"
                 placeholder="First name (required)"
               />
-               <Input
+              <Input
                 value={this.state.lasttname}
                 onChange={this.handleInputChange}
                 name="lasttname"
@@ -80,16 +85,20 @@ class Books extends Component {
                 name="whoareyou"
                 placeholder="Who are you?(required)"
               />
-              
 
-               <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Regular link</a>
-              <a class="dropdown-item disabled" href="#">Disabled link</a>
-              <a class="dropdown-item" href="#">Another link</a>
-              </div> 
-              
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">
+                  Regular link
+                </a>
+                <a class="dropdown-item disabled" href="#">
+                  Disabled link
+                </a>
+                <a class="dropdown-item" href="#">
+                  Another link
+                </a>
+              </div>
 
-            <Input
+              <Input
                 value={this.state.Nickname}
                 onChange={this.handleInputChange}
                 name="Nickname"
@@ -114,22 +123,21 @@ class Books extends Component {
                 onChange={this.handleInputChange}
                 name="Birthday"
                 placeholder="mm/dd/yy"
-              />             
-               <Input
+              />
+              <Input
                 value={this.state.email}
                 onChange={this.handleInputChange}
                 name="email"
                 placeholder="Email (required)"
               />
 
-               <Input
+              <Input
                 value={this.state.password}
                 onChange={this.handleInputChange}
                 name="password"
                 placeholder="Password (required)"
               />
 
-             
               <FormBtn
                 disabled={!(this.state.firstname && this.state.lastname)}
                 onClick={this.handleFormSubmit}
@@ -137,21 +145,21 @@ class Books extends Component {
                 Submit
               </FormBtn>
             </form>
-
-
           </Col>
           <Col size="md-6 sm-12">
             {/*  */}
-            {this.state.books.length ? (
+            {this.state.participant.length ? (
               <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
+                {this.state.participant.map(participant => (
+                  <ListItem key={participant._id}>
+                    <Link to={"/participant/" + participant._id}>
                       <strong>
-                        {book.title} by {book.author}
+                        {participant.title} by {participant.author}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <DeleteBtn
+                      onClick={() => this.deleteParticipant(participant._id)}
+                    />
                   </ListItem>
                 ))}
               </List>
@@ -165,4 +173,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default Participant;
