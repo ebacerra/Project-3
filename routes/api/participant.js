@@ -7,7 +7,11 @@ router
   .get(participantController.findAll)
   .post(participantController.create);
 
-  
+router
+  .route("/assignRooms")
+  .post(participantController.assignRooms);
+
+
 // Matches with "/api/books/:id"
 router
   .route("/:id")

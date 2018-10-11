@@ -3,23 +3,27 @@ import "./Nav.css";
 
 const Nav = () => (
   <nav>
-    <div className="navbar" id="navbargroup" herf="/">
+
+      <div className="navbar" id="navbargroup" herf="/">
       <div className="logoname">
-        <p id="logo">Flashii</p>
+      <p id="logo">
+      Flashii
+    </p>
+
       </div>
-
+    
+  
       <a href="#">Newsfeed</a>
+      <a href="#">Rooming</a>  
+      <a href="#">Roster</a>  
+  
+          <a href="#">Add New Participant</a>  
+          <button type="button" class="btn btn-outline-primary">Logout</button>    
 
-      <a href="#">Rooming</a>
+  </div>
 
-      <a href="#">Roster</a>
+</nav>
 
-      <a href="#">Add New Participant</a>
-      <button type="button" class="btn btn-outline-primary">
-        Logout
-      </button>
-    </div>
-  </nav>
 );
 
 export default Nav;
