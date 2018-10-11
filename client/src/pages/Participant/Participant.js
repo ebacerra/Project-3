@@ -10,7 +10,7 @@ import Card from "../../components/Card";
 
 class Participant extends Component {
   state = {
-    books: [],
+    participant: [],
     title: "",
     author: "",
     synopsis: ""
@@ -21,10 +21,10 @@ class Participant extends Component {
   }
 
   loadParticipant = () => {
-    API.Participant()
+    API.getParticipants()
       .then(res =>
         this.setState({
-          Participant: res.data,
+          participant: res.data,
           title: "",
           author: "",
           synopsis: ""
@@ -136,17 +136,17 @@ class Participant extends Component {
           </Col>
           <Col size="md-6 sm-12">
             {/*  */}
-            {this.state.Participant.length ? (
+
+            {console.log(this.state.participant)}
+            {this.state.participant.length ? (
               <List>
-                {this.state.Participant.map(book => (
-                  <ListItem key={Participant._id}>
-                    <Link to={"/participant/" + Participant._id}>
-                      <strong>
-                        {Participant.title} by {Participant.author}
-                      </strong>
+                {this.state.participant.map(participant => (
+                  <ListItem key={participant._id}>
+                    <Link to={"/participant/" + participant._id}>
+                      <strong>{participant.firstName}</strong>
                     </Link>
                     <DeleteBtn
-                      onClick={() => this.deleteBook(Participant._id)}
+                      onClick={() => this.deleteBook(participant._id)}
                     />
                   </ListItem>
                 ))}
