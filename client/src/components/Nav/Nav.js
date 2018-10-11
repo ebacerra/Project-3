@@ -1,4 +1,5 @@
 import React from "react";
+import Logoutbtn from "./Logoutbtn";
 // import "./Nav.css";
 import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 
@@ -45,12 +46,8 @@ class Nav1 extends React.Component {
                 <DropdownItem divider /> */}
                 <DropdownItem>Add a New Participant</DropdownItem>
               </DropdownMenu>
-            </Dropdown>
-
-
-
-
-            
+            </Dropdown> 
+            <Logoutbtn/>
           </Nav>
          
         </div>
