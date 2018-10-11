@@ -8,15 +8,16 @@ import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import Card from "../../components/Card";
 import Carousel from "./Carousel";
+import "./About.css";
 
 const About = () => (
   <div>
-    <Carousel />
+    <Carousel style={{ marginTop: 50}} />
 
     {/* <h1>Flashii</h1> */}
     <h2>Who we are</h2>
 
-    <Container style={{ marginTop: 30 }}>
+    <Container style={{ marginTop: 50 }}>
       <Row>
         <Col size="md-12">
           <h1>How it works!</h1>
