@@ -6,15 +6,15 @@ export default {
     return axios.get("/api/participants");
   },
   // Gets the book with the given id
-  geParticipant: function(id) {
+  getParticipant: function(id) {
     return axios.get("/api/participants/" + id);
   },
   // Deletes the book with the given id
-  deletParticipant: function(id) {
+  deleteParticipant: function(id) {
     return axios.delete("/api/participants/" + id);
   },
   // Saves a book to the database
-  savParticipant: function(participantData) {
+  saveParticipant: function(participantData) {
     return axios.post("/api/participants", participantData);
   }
 };
