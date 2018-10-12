@@ -1,6 +1,6 @@
 import React from "react";
 import Logoutbtn from "./Logoutbtn";
-// import "./Nav.css";
+import "./Nav.css";
 import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 
 class Nav1 extends React.Component {
@@ -21,21 +21,21 @@ class Nav1 extends React.Component {
   
     render() {
       return (
-        <div>
+        <div class="navbar">
           <Nav tabs>
-          <NavItem>
-              <NavLink disabled href="#">Flashii</NavLink>
+          <NavItem className="text">
+              <NavLink  Disable href=" ">SnapSight</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#">Newsfeed</NavLink>
+              <NavLink href="">Newsfeed</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#">Rooming</NavLink>
+              <NavLink href="">Rooming</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="#">Roster</NavLink>
             </NavItem>
-            <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <Dropdown  nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle nav caret>
                 Add
               </DropdownToggle>
@@ -44,7 +44,7 @@ class Nav1 extends React.Component {
                 <DropdownItem disabled>Rooming</DropdownItem>
                 <DropdownItem>Roster</DropdownItem>
                 <DropdownItem divider /> */}
-                <DropdownItem>Add a New Participant</DropdownItem>
+                <DropdownItem  href="">Add a New Participant</DropdownItem>
               </DropdownMenu>
             </Dropdown> 
             <Logoutbtn/>

@@ -7,6 +7,7 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import Card from "../../components/Card";
+import "./Participant.css";
 
 class Participant extends Component {
   state = {
@@ -156,12 +157,12 @@ class Participant extends Component {
                 Who is going with me?
                 <Card />
                 <Card />
-                <FormBtn
+                {/* <FormBtn
                   disabled={!(this.state.firstname && this.state.lastname)}
                   onClick={this.handleFormSubmit}
                 >
                   Join
-                </FormBtn>
+                </FormBtn> */}
               </h3>
             )}
           </Col>
