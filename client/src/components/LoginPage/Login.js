@@ -58,7 +58,7 @@ class Login extends Component {
       <div className="login-container">
         <Container style={{ height: "100vh" }}>
           <Row className="d-flex justify-content-center h-100">
-            <Card>
+            <Card className="loginCard">
               <CardHeader>
                 <h3 className="text-center">Welcome to SnapSight</h3>
               </CardHeader>
