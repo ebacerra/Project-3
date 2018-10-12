@@ -29,38 +29,48 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   assignRooms: function (req, res) {
+    console.log("inside assign rooms...");
     let gender = req.params.gender;
     db.Participant.find({ gender: gender })
       .then(dbParticipants => {
+        console.log(`Gender: ${gender} Participants: ${dbParticipants.length}`);
         let n = dbParticipants.length;
-        let numRooms = n / CAPACITY;
+        let numRooms = Math.floor(n / CAPACITY);
         if (n % CAPACITY > 0) {
           numRooms++;
         }
         let visitors = [];
         let locals = [];
+        console.log(`Gender: ${gender}, visitors: ${visitors.length}, locals: ${locals.length}`);
         //separate locals from visitors in two arrays
         dbParticipants.forEach(participant => {
+          console.log(`${participant}`);
           switch (participant.role) {
             case 'visitor':
+            case 'admin':
               visitors.push(participant);
               break;
             case 'local':
               locals.push(participant);
               break;
+            default:
+              break;
           }
         });
+        console.log(`Rooms: ${numRooms} visitors: ${visitors.length} locals: ${locals.length}`);
         let rooms = [];
         let dbRooms;
         //create rooms in the database
         for (let i = 0; i < numRooms; i++) {
           rooms.push({ roomNumber: i, gender: gender, participants: [] });
         }
+        db.Room.remove({});
         db.Room.create(rooms)
           .then(data => {
             dbRooms = data;
             //distribute participants to rooms
-            dbRooms = distributelocals(locals, dbRooms);
+            distributelocals(locals, dbRooms);
+            outputRooms(dbRooms);
             //loop on locals to update room info
             locals.forEach(local => {
               //loop on rooms to find the local person's room
@@ -70,8 +80,9 @@ module.exports = {
                 }
               });
             });
-            dbRooms = distributeVisitors(visitors, dbRooms);
-            
+            distributeVisitors(visitors, dbRooms);
+            outputRooms(dbRooms);
+            console.log("rooms distributed.");
           })
           .catch(err => {
             throw err;
@@ -84,28 +95,31 @@ module.exports = {
 };
 
 function distributelocals(locals, rooms) {
-  let = shallowCloneArr(rooms);
-  let localsClone = shallowCloneArr(locals);
-  localsClone.forEach((local) => {
+  console.log(`Inside distributelocals Locals: ${locals} rooms: ${rooms.length}`);
+  let roomsClone = shallowCloneArr(rooms);
+  locals.forEach(local => {
     let i = 0;
     for (i = 0; i < roomsClone.length; i++) {
-      rooms[i].participants.push(local);
+      if (roomsClone[i].participants.length === 0) {
+        roomsClone[i].participants.push(local);
+        local.room = roomsClone[i];
+        break;
+      }
     }
   });
-  return rooms;
+  return roomsClone;
 }
 
 function distributeVisitors(visitors, rooms) {
-  let roomsClone = shallowCloneArr(rooms);
-  let visitorsClone = shallowCloneArr(visitors);
-  roomsClone.forEach(room => {
+  // let roomsClone = deepCloneArrayRooms(rooms);
+  // let visitorsClone = shallowCloneArr(visitors);
+  rooms.forEach(room => {
     let space = CAPACITY - room.participants.length;
     for (let i = 0; i < space; i++) {
-      visitor = visitorsClone.shift();
+      visitor = visitors.shift();
       room.participants.push(visitor);
     }
   });
-  return rooms;
 }
 
 function shallowCloneArr(arr) {
@@ -117,6 +131,7 @@ function shallowCloneArr(arr) {
 }
 
 function deepCloneArrayRooms(arr) {
+  console.log(`inside deepCloneArrayRooms`);
   let newArr = [];
   arr.forEach(room => {
     let newRoom = {
@@ -130,4 +145,15 @@ function deepCloneArrayRooms(arr) {
     newArr.push(newRoom);
   });
   return newArr;
+}
+function outputRooms(rooms) {
+  rooms.forEach(room => {
+    console.log(`Room: ${room.roomNumber} ${room.gender} participants: ${room.participants.length}`);
+    room.participants.forEach(participant => {
+      outputParticipant(participant);
+    });
+  });
+}
+function outputParticipant(p) {
+  console.log(`Name: ${p.firstName} ${p.lastName} role: ${p.role}`);
 }
