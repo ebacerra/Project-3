@@ -71,7 +71,7 @@ module.exports = {
               });
             });
             dbRooms = distributeVisitors(visitors, dbRooms);
-            
+
           })
           .catch(err => {
             throw err;

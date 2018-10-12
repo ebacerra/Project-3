@@ -11,6 +11,9 @@ convertExcel(fileName, null, null, (err, participantsSeed) => {
     throw err;
   } else {
     participantsSeed.slice(-1);
+    participantsSeed.forEach(participant => {
+      participant.gender = participant.gender.toLowerCase();
+    });
     console.log(participantsSeed);
     db.Participant.insertMany(participantsSeed)
       .then()
