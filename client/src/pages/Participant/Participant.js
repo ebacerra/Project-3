@@ -7,11 +7,9 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import Card from "../../components/Card";
-import "./Participant.css";
+
 
 const styles = {
- 
-  
   }
 
 
@@ -139,6 +137,8 @@ class Participant extends Component {
               >
                 Submit
               </FormBtn>
+
+
             </form>
           </Col>
           <Col size="md-6 sm-12">
@@ -174,6 +174,9 @@ class Participant extends Component {
           </Col>
         </Row>
       </Container>
+
+
+
     );
   }
 }
