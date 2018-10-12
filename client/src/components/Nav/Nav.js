@@ -43,7 +43,7 @@ class Nav1 extends React.Component {
       <div class="navbar" style={styles.navbar}>
         <Nav tabs>
           <NavItem className="text">
-            <NavLink style={styles.text} Disable href=" ">
+            <NavLink style={styles.text} Disable href="/">
               SnapSight
             </NavLink>
           </NavItem>
@@ -53,12 +53,12 @@ class Nav1 extends React.Component {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink style={styles.text} href="/room">
+            <NavLink style={styles.text} href="/roomingcard">
               Rooming
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink style={styles.text} href="#">
+            <NavLink style={styles.text} href="/roster">
               Roster
             </NavLink>
           </NavItem>
