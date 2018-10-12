@@ -16,5 +16,10 @@ export default {
   // Saves a book to the database
   saveParticipant: function(participantData) {
     return axios.post("/api/participants", participantData);
+  },
+
+  // Room functions:
+  getRooms: function() {
+    return axios.get("/api/room");
   }
 };
