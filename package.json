@@ -38,6 +38,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "if-env": "^1.0.4",
+    "mdbreact": "^4.8.1",
     "mongoose": "^5.3.1",
     "reactstrap": "^6.5.0"
   }
