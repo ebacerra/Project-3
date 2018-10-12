@@ -12,7 +12,7 @@ const App = () => (
     <div className="app-container">
       <Nav />
       <Switch>
-        <Route exact path="/" component={About} />
+        <Route exact path="/about" component={About} />
         <Route exact path="/participant" component={Participant} />
         <Route exact path="/roster" component={Roster} />   
         <Route exact path="/roomingcard" component={RoomingCard} />   

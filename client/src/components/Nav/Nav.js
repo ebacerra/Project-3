@@ -48,7 +48,7 @@ class Nav1 extends React.Component {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink style={styles.text} href="/">
+            <NavLink style={styles.text} href="/about">
               Newsfeed
             </NavLink>
           </NavItem>
