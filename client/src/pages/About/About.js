@@ -10,13 +10,14 @@ import Card from "../../components/Card";
 // import Carousel from "./Carousel";
 import Footer from "../../components/Footer";
 import "./About.css";
+import Carousel from "./Carousel.js"
 
 const About = () => (
   <div className="carouseldisplay">
-    {/* <Carousel style={{ marginTop: 0}} /> */}
+    <Carousel style={{ marginTop: 0}} />
 
-    {/* <h1>Flashii</h1> */}
-    {/* <h2>Who we are</h2>
+    <h1>Flashii</h1>
+    <h2>Who we are</h2>
 
     <Container style={{ marginTop:0 }}>
       <Row>
@@ -42,10 +43,10 @@ const About = () => (
             suscipit orci neque, vestibulum tincidunt augue tincidunt non. Duis
             consequat mattis tortor vitae mattis.
           </p>
-           */}
-        {/* </Col> */}
-      {/* </Row> */}
-    {/* </Container> */}
+           
+        </Col> */}
+      </Row>
+    </Container>
     
     <div className="footer"
     

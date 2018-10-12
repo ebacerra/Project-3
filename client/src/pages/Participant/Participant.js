@@ -9,6 +9,12 @@ import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import Card from "../../components/Card";
 import "./Participant.css";
 
+const styles = {
+ 
+  
+  }
+
+
 class Participant extends Component {
   state = {
     participant: [],

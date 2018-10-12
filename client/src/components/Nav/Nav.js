@@ -3,6 +3,14 @@ import Logoutbtn from "./Logoutbtn";
 import "./Nav.css";
 import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 
+const styles = {
+  text : {
+    fontSize: '20px',
+    color: 'black'
+  
+  }
+}
+
 class Nav1 extends React.Component {
     constructor(props) {
       super(props);
@@ -24,16 +32,16 @@ class Nav1 extends React.Component {
         <div class="navbar">
           <Nav tabs>
           <NavItem className="text">
-              <NavLink  Disable href=" ">SnapSight</NavLink>
+              <NavLink  style={styles.text} Disable href=" ">SnapSight</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="">Newsfeed</NavLink>
+              <NavLink style={styles.text} href="">Newsfeed</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="">Rooming</NavLink>
+              <NavLink style={styles.text} href="">Rooming</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#">Roster</NavLink>
+              <NavLink style={styles.text} href="#">Roster</NavLink>
             </NavItem>
             <Dropdown  nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle nav caret>
