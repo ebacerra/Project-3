@@ -7,12 +7,8 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import Card from "../../components/Card";
-
-
-
-const styles = {
-  }
-
+import "./Participant.css"
+import background from './banner3.jpg';
 
 class Participant extends Component {
   state = {
@@ -66,7 +62,13 @@ class Participant extends Component {
   };
   render() {
     return (
-      <Container fluid>
+      <Container className="participant-container" style={
+        {
+            backgroundImage:`url(${background})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat"
+        }
+        }  >
         <Row>
           <Col size="md-6" stytle="padding-top: 20px">
             {/* <Jumbotron>

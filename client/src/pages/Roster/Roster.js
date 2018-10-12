@@ -9,10 +9,19 @@ import { Input, TextArea, FormBtn, Select} from "../../components/Form";
 import {
     Card, CardImg, CardBody, Container, Row, Col,
 } from 'reactstrap';
+import "./Roster.css"
+import background from './banner5.jpg';
+
 
 const Roster = (props) => {
     return (
-        <Container>
+        <Container className="roomingcard-container" style={
+            {
+                backgroundImage:`url(${background})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat"
+            }
+            }>
             <Row>
                 <Col className="sm">
                     <Row style={{ maxHeight: 320, maxWidth: 1000 }}>

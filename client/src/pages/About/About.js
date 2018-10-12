@@ -16,8 +16,8 @@ const About = () => (
   <div className="carouseldisplay">
     <Carousel style={{ marginTop: 0}} />
 
-    <h1>Flashii</h1>
-    <h2>Who we are</h2>
+    <h1>SnapSight</h1>
+    <h2></h2>
 
     <Container style={{ marginTop:0 }}>
       <Row>
@@ -44,7 +44,7 @@ const About = () => (
             consequat mattis tortor vitae mattis.
           </p>
            
-        </Col> */}
+        </Col> 
       </Row>
     </Container>
     

@@ -2,10 +2,19 @@ import React from 'react';
 import {
     Card, CardImg, CardBody, Container, Row, Col,
 } from 'reactstrap';
+import "./RoomingCard.css"
+import background from './banner3.jpg';
+
 
 const RoomingCard = (props) => {
     return (
-        <Container>
+        <Container className="roomingcard-container" style={
+            {
+                backgroundImage:`url(${background})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat"
+            }
+            }>
             <Row>
                 <Col className="sm">
                     <Row style={{ maxHeight: 320, maxWidth: 1000 }}>
@@ -56,6 +65,7 @@ const RoomingCard = (props) => {
                     </Row>
                 </Col>
             </Row>
+         
         </Container >
     );
 };

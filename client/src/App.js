@@ -6,9 +6,10 @@ import Nav from "./components/Nav";
 import "./components/CardBtn/CardBtn.css";
 import Roster from "./pages/Roster";
 import RoomingCard from "./pages/RoomingCard";
+import "./App.css"
 const App = () => (
   <Router>
-    <div>
+    <div className="app-container">
       <Nav />
       <Switch>
         <Route exact path="/" component={About} />
