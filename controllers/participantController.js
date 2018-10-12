@@ -83,6 +83,20 @@ module.exports = {
             distributeVisitors(visitors, dbRooms);
             outputRooms(dbRooms);
             console.log("rooms distributed.");
+            dbRoom.updateMany({}, dbRooms)
+              .then(data => {
+                let updatedParticipants = visitors.concat(locals);
+                dbParticipants.updateMany({}, updatedParticipants)
+                  .then(data => {
+
+                  })
+                  .catch(err => {
+                    throw err;
+                  });
+              })
+              .catch(err => {
+                throw err;
+              });
           })
           .catch(err => {
             throw err;
