@@ -10,7 +10,7 @@ import Login from "./components/LoginPage/Login.js";
 
 const App = () => (
   <Router>
-    <div>
+    <div className="app-container">
       <Nav />
       <Switch>
         <Route exact path="/" component={Login} />
