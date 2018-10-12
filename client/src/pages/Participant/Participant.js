@@ -9,6 +9,7 @@ import { Input, TextArea, FormBtn, Select } from "../../components/Form";
 import Card from "../../components/Card";
 
 
+
 const styles = {
   }
 
@@ -67,7 +68,7 @@ class Participant extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          <Col size="md-6" stytle="padding-top: 20px">
             {/* <Jumbotron>
               <h1>What Books Should I Read?</h1>
             </Jumbotron> */}
