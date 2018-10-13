@@ -9,10 +9,7 @@ const participantSchema = new Schema({
   phone: { type: String, required: true },
   role: { type: String, required: true },
   birthday: { type: Date, default: Date.now },
-  room: {
-    type: Schema.Types.ObjectId,
-    ref: "Room"
-  }
+  roomNumber: { type: String, required: false }
 });
 
 const Participant = mongoose.model("Participant", participantSchema);
