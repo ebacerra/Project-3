@@ -93,6 +93,7 @@ class Login extends Component {
                   <div className="text-center">
                     <FormGroup>
                       <input
+                        style={{ fontSize: "10px" }}
                         type="submit"
                         value="Login"
                         className="btn login_btn text-center"
