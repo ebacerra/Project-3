@@ -1,3 +1,5 @@
-.participant-container{
-    height: 100%;
+.participant-container {
+  height: 100%;
+  position: relative;
+  top: 80px;
 }
