@@ -29,11 +29,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   assignRooms: function (req, res) {
-    console.log("inside assign rooms...");
     let gender = req.params.gender;
     db.Participant.find({ gender: gender })
       .then(dbParticipants => {
-        console.log(`Gender: ${gender} Participants: ${dbParticipants.length}`);
         let n = dbParticipants.length;
         let numRooms = Math.floor(n / CAPACITY);
         if (n % CAPACITY > 0) {
@@ -44,7 +42,6 @@ module.exports = {
         console.log(`Gender: ${gender}, visitors: ${visitors.length}, locals: ${locals.length}`);
         //separate locals from visitors in two arrays
         dbParticipants.forEach(participant => {
-          console.log(`${participant}`);
           switch (participant.role) {
             case 'visitor':
             case 'admin':
@@ -64,35 +61,19 @@ module.exports = {
         for (let i = 0; i < numRooms; i++) {
           rooms.push({ roomNumber: i, gender: gender, participants: [] });
         }
-        db.Room.remove({});
-        db.Room.create(rooms)
+        db.Room.deleteMany({})
           .then(data => {
-            dbRooms = data;
-            //distribute participants to rooms
-            distributelocals(locals, dbRooms);
-            outputRooms(dbRooms);
-            //loop on locals to update room info
-            locals.forEach(local => {
-              //loop on rooms to find the local person's room
-              dbRooms.forEach(dbRoom => {
-                if (dbRoom.participants.includes(local)) {
-                  local.room = dbRoom;
-                }
-              });
-            });
-            distributeVisitors(visitors, dbRooms);
-            outputRooms(dbRooms);
-            console.log("rooms distributed.");
-            dbRoom.updateMany({}, dbRooms)
+            db.Room.create(rooms)
               .then(data => {
-                let updatedParticipants = visitors.concat(locals);
-                dbParticipants.updateMany({}, updatedParticipants)
-                  .then(data => {
+                dbRooms = data;
+                //distribute participants to rooms
+                distributelocals(locals, dbRooms);
+                distributeVisitors(visitors, dbRooms);
+                outputRooms(dbRooms);
+                console.log("rooms distributed.");
+                updateRoomsDB(dbRooms, 0);
+                updateParticipantsDB(dbParticipants, 0);
 
-                  })
-                  .catch(err => {
-                    throw err;
-                  });
               })
               .catch(err => {
                 throw err;
@@ -102,6 +83,7 @@ module.exports = {
             throw err;
           });
 
+
       })
       .catch(err => res.status(422).json(err));
 
@@ -109,29 +91,29 @@ module.exports = {
 };
 
 function distributelocals(locals, rooms) {
-  console.log(`Inside distributelocals Locals: ${locals} rooms: ${rooms.length}`);
-  let roomsClone = shallowCloneArr(rooms);
+  console.log(`Inside distribute locals Locals: ${locals} rooms: ${rooms.length}`);
   locals.forEach(local => {
     let i = 0;
-    for (i = 0; i < roomsClone.length; i++) {
-      if (roomsClone[i].participants.length === 0) {
-        roomsClone[i].participants.push(local);
-        local.room = roomsClone[i];
+    for (i = 0; i < rooms.length; i++) {
+      if (rooms[i].participants.length === 0) {
+        rooms[i].participants.push(local);
+        local.room = rooms[i];
         break;
       }
     }
   });
-  return roomsClone;
 }
 
 function distributeVisitors(visitors, rooms) {
-  // let roomsClone = deepCloneArrayRooms(rooms);
-  // let visitorsClone = shallowCloneArr(visitors);
+  let visitorsClone = shallowCloneArr(visitors);
   rooms.forEach(room => {
     let space = CAPACITY - room.participants.length;
     for (let i = 0; i < space; i++) {
-      visitor = visitors.shift();
-      room.participants.push(visitor);
+      visitor = visitorsClone.shift();
+      if (visitor) {
+        room.participants.push(visitor);
+        visitor.room = room;
+      }
     }
   });
 }
@@ -169,5 +151,43 @@ function outputRooms(rooms) {
   });
 }
 function outputParticipant(p) {
-  console.log(`Name: ${p.firstName} ${p.lastName} role: ${p.role}`);
+  if (p) {
+    console.log(`Name: ${p.firstName} ${p.lastName} role: ${p.role}`);
+  }
+
+}
+
+function updateRoomsDB(rooms, curIndex) {
+  console.log(`updating Room #${curIndex}: ${rooms[curIndex]._id}`);
+  db.Room.updateOne({ _id: rooms[curIndex]._id }, rooms[curIndex], { multi: false })
+    .then(dbRoom => {
+      console.log(`Updated Room: ${dbRoom}`);
+      curIndex++;
+      if (curIndex === rooms.length) {
+        return rooms;
+      } else {
+        updateRoomsDB(rooms, curIndex);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+}
+function updateParticipantsDB(participants, curIndex) {
+  console.log(`updating Participant #${curIndex}: ${participants[curIndex]._id}`);
+  db.Participant.updateOne({ _id: participants[curIndex]._id }, participants[curIndex], { multi: false })
+    .then(dbParticipant => {
+      console.log(`Updated Participant: ${dbParticipant}`);
+      curIndex++;
+      if (curIndex === participants.length) {
+        return participants;
+      } else {
+        updateParticipantsDB(participants, curIndex);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 }
