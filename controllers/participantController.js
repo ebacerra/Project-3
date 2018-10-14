@@ -68,21 +68,12 @@ module.exports = {
                 dbRooms = data;
                 //distribute participants to rooms
                 distributelocals(locals, dbRooms);
-                outputRooms(dbRooms);
-                //loop on locals to update room info
-                locals.forEach(local => {
-                  //loop on rooms to find the local person's room
-                  dbRooms.forEach(dbRoom => {
-                    if (dbRoom.participants.includes(local)) {
-                      local.room = dbRoom;
-                    }
-                  });
-                });
                 distributeVisitors(visitors, dbRooms);
                 outputRooms(dbRooms);
                 console.log("rooms distributed.");
                 updateRoomsDB(dbRooms, 0);
                 updateParticipantsDB(dbParticipants, 0);
+
               })
               .catch(err => {
                 throw err;
@@ -100,8 +91,7 @@ module.exports = {
 };
 
 function distributelocals(locals, rooms) {
-  console.log(`Inside distributelocals Locals: ${locals} rooms: ${rooms.length}`);
-  //let roomsClone = shallowCloneArr(rooms);
+  console.log(`Inside distribute locals Locals: ${locals} rooms: ${rooms.length}`);
   locals.forEach(local => {
     let i = 0;
     for (i = 0; i < rooms.length; i++) {
