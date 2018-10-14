@@ -35,7 +35,7 @@ class Nav1 extends React.Component {
 
     return (
       <div class="navbar fixed-top" style={styles.navbar}>
-        <Nav pills>
+        <Nav tabs>
           <NavItem className="text">
             <NavLink style={styles.text} Disable href="/">
               SnapSight
