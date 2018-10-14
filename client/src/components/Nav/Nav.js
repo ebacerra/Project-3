@@ -24,10 +24,12 @@ class Nav1 extends React.Component {
     const styles = {
       text: {
         fontSize: "20px",
-        color: "black"
+        color: "black",
+        backgroundColor: "white"
       },
       navbar: {
-        marginBottom: "35px"
+        marginBottom: "35px",
+        backgroundColor: "white"
       }
     };
 
