@@ -154,7 +154,9 @@ class Participant extends Component {
                           <strong>{participant.firstName}</strong>
                         </Link>
                         <DeleteBtn
-                          onClick={() => this.deleteBook(participant._id)}
+                          onClick={() =>
+                            this.deleteParticipant(participant._id)
+                          }
                         />
                       </ListItem>
                     ))}
