@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
-// import Jumbotron from "../../components/Jumbotron";
 import Nav from "../../components/Nav";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn, Select } from "../../components/Form";
+import { Input, FormBtn } from "../../components/Form";
 import Card from "../../components/Card";
 import "./Participant.css";
 import background from "./banner3.jpg";
+import "./Participant.css";
 
 class Participant extends Component {
   state = {
@@ -65,120 +65,111 @@ class Participant extends Component {
     return (
       <div>
         <Nav />
-        <Container
-          className="participant-container"
-          style={{
-            backgroundImage: `url(${background})`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat"
-          }}
-        >
-          <Row>
-            <Col size="md-6" stytle="padding-top: 20px">
-              {/* <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-            </Jumbotron> */}
-              <form>
-                <Input
-                  value={this.state.firstname}
-                  onChange={this.handleInputChange}
-                  name="firstname"
-                  placeholder="First name (required)"
-                />
-                <Input
-                  value={this.state.lasttname}
-                  onChange={this.handleInputChange}
-                  name="lasttname"
-                  placeholder="Last name (required)"
-                />
-                <Input
-                  value={this.state.whoareyou}
-                  onChange={this.handleInputChange}
-                  name="whoareyou"
-                  placeholder="Who are you?(required)"
-                />
+        <div className="participantDiv">
+          <Container
+            className="participant-container"
+            style={{
+              backgroundImage: `url(${background})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat"
+            }}
+          >
+            <Row>
+              <Col size="md-6" stytle="padding-top: 20px">
+                <form>
+                  <Input
+                    value={this.state.firstname}
+                    onChange={this.handleInputChange}
+                    name="firstname"
+                    placeholder="First name (required)"
+                  />
+                  <Input
+                    value={this.state.lasttname}
+                    onChange={this.handleInputChange}
+                    name="lasttname"
+                    placeholder="Last name (required)"
+                  />
+                  <Input
+                    value={this.state.whoareyou}
+                    onChange={this.handleInputChange}
+                    name="whoareyou"
+                    placeholder="Who are you?(required)"
+                  />
 
-                <Input
-                  value={this.state.Nickname}
-                  onChange={this.handleInputChange}
-                  name="Nickname"
-                  placeholder="Nickname (optional)"
-                />
-                <Input
-                  value={this.state.Selectgender}
-                  onChange={this.handleInputChange}
-                  name="Selectgender"
-                  placeholder="Select Gender"
-                />
+                  <Input
+                    value={this.state.Nickname}
+                    onChange={this.handleInputChange}
+                    name="Nickname"
+                    placeholder="Nickname (optional)"
+                  />
+                  <Input
+                    value={this.state.Selectgender}
+                    onChange={this.handleInputChange}
+                    name="Selectgender"
+                    placeholder="Select Gender"
+                  />
 
-                <Input
-                  value={this.state.Phonenumber}
-                  onChange={this.handleInputChange}
-                  name="Phonenumber"
-                  placeholder="Phone Number"
-                />
+                  <Input
+                    value={this.state.Phonenumber}
+                    onChange={this.handleInputChange}
+                    name="Phonenumber"
+                    placeholder="Phone Number"
+                  />
 
-                <Input
-                  value={this.state.Birthday}
-                  onChange={this.handleInputChange}
-                  name="Birthday"
-                  placeholder="mm/dd/yy"
-                />
-                <Input
-                  value={this.state.email}
-                  onChange={this.handleInputChange}
-                  name="email"
-                  placeholder="Email (required)"
-                />
+                  <Input
+                    value={this.state.Birthday}
+                    onChange={this.handleInputChange}
+                    name="Birthday"
+                    placeholder="mm/dd/yy"
+                  />
+                  <Input
+                    value={this.state.email}
+                    onChange={this.handleInputChange}
+                    name="email"
+                    placeholder="Email (required)"
+                  />
 
-                <Input
-                  value={this.state.password}
-                  onChange={this.handleInputChange}
-                  name="password"
-                  placeholder="Password (required)"
-                />
+                  <Input
+                    value={this.state.password}
+                    onChange={this.handleInputChange}
+                    name="password"
+                    placeholder="Password (required)"
+                  />
 
-                <FormBtn
-                  disabled={!(this.state.firstname && this.state.lastname)}
-                  onClick={this.handleFormSubmit}
-                >
-                  Submit
-                </FormBtn>
-              </form>
-            </Col>
-            <Col size="md-6 sm-12">
-              {/*  */}
-
-              {console.log(this.state.participant)}
-              {this.state.participant.length ? (
-                <List>
-                  {this.state.participant.map(participant => (
-                    <ListItem key={participant._id}>
-                      <Link to={"/participant/" + participant._id}>
-                        <strong>{participant.firstName}</strong>
-                      </Link>
-                      <DeleteBtn
-                        onClick={() => this.deleteBook(participant._id)}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              ) : (
-                <h3>
-                  Who is going with me?
-                  <Card />
-                  <Card />
-                  {/* <FormBtn
-                  disabled={!(this.state.firstname && this.state.lastname)}
-                  onClick={this.handleFormSubmit}
-                >
-                  Join
-                </FormBtn> */}
-                </h3>
-              )}
-            </Col>
-          </Row>
-        </Container>
+                  <FormBtn
+                    disabled={!(this.state.firstname && this.state.lastname)}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Submit
+                  </FormBtn>
+                </form>
+              </Col>
+              <Col size="md-6 sm-12">
+                {console.log(this.state.participant)}
+                {this.state.participant.length ? (
+                  <List>
+                    {this.state.participant.map(participant => (
+                      <ListItem key={participant._id}>
+                        <Link to={"/participant/" + participant._id}>
+                          <strong>{participant.firstName}</strong>
+                        </Link>
+                        <DeleteBtn
+                          onClick={() => this.deleteBook(participant._id)}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <h3>
+                    Who is going with me?
+                    <Card />
+                    <Card />
+                  </h3>
+                )}
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </div>
     );
   }

@@ -3,3 +3,11 @@
   position: relative;
   top: 80px;
 }
+
+.participantDiv {
+  padding-top: 80px;
+  position: relative;
+  float: center;
+  width: 100%;
+  position: center;
+}

@@ -1,3 +1,16 @@
-.roomingcard-container{
-    height: 100%;
+.roomingcardContainer {
+  padding-top: 80px;
+  position: relative;
+  float: center;
+  width: 100%;
+  position: center;
+}
+
+.assignRoom {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  height: 470px !important;
+  width: 380px !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
 }

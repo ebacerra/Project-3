@@ -8,9 +8,8 @@ const RoomingCard = props => {
   return (
     <div>
       <Nav />
-      <div className="app-container">
+      <div className="roomingcardContainer">
         <Container
-          className="roomingcard-container"
           style={{
             backgroundImage: `url(${background})`,
             backgroundSize: "cover",
@@ -19,12 +18,11 @@ const RoomingCard = props => {
         >
           <Row>
             <Col className="sm">
-              <Row style={{ maxHeight: 320, maxWidth: 1000 }}>
+              <Row>
                 <Col xs="12" md="6">
-                  <Card body inverse color="info" className="mb-5 mt-5">
-                    <h3 className="text-center">Room #</h3>
-                    <hr />
-                    <CardBody>
+                  <Card className="assignRoommb-5 mt-5">
+                    <CardBody style={{ maxWidth: 1000 }}>
+                      <h3 className="text-center">Room #</h3>
                       <Row className="align-items-center">
                         <Col
                           lg="3"

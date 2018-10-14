@@ -1,3 +1,11 @@
-.roomingcard-container{
-    height: 100%;
+.roomingcard-container {
+  height: 100%;
+}
+
+.rosterContainer {
+  padding-top: 80px;
+  position: relative;
+  float: center;
+  width: 100%;
+  position: center;
 }

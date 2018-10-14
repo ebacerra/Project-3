@@ -1,14 +1,6 @@
-import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
-// import Jumbotron from "../../components/Jumbotron";
-import API from "../../utils/API";
-import { Link } from "react-router-dom";
+import React from "react";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn, Select } from "../../components/Form";
-import Card from "../../components/Card";
 import Nav from "../../components/Nav";
-// import Carousel from "./Carousel";
 import Footer from "../../components/Footer";
 import "./About.css";
 import Carousel from "./Carousel.js";
@@ -18,14 +10,12 @@ const About = () => (
     <Nav />
     <div className="carouseldisplay">
       <Carousel style={{ marginTop: 0 }} />
-
-      <h1>SnapSight</h1>
-      <h2 />
-
+      <h1 className="text-center">SnapSight</h1>
       <Container style={{ marginTop: 0 }}>
         <Row>
           <Col size="md-12">
-            <h1>How it works!</h1>
+            <br />
+            <h3 className="text-center">Who we are?</h3>
           </Col>
         </Row>
         <Row>
@@ -36,15 +26,7 @@ const About = () => (
               varius natoque penatibus et magnis dis parturient montes, nascetur
               ridiculus mus. Pellentesque et dui id justo finibus sollicitudin
               at et metus. Ut feugiat tellus nec metus commodo, sed suscipit
-              nisi gravida. Duis eget vestibulum quam, ut porttitor sem. Donec
-              sagittis mi sollicitudin turpis semper, et interdum risus
-              lobortis. Vestibulum suscipit nunc non egestas tristique. Proin
-              hendrerit efficitur malesuada. Mauris lorem urna, sodales accumsan
-              quam non, tristique tempor erat. Nullam non sem facilisis, tempus
-              tortor sit amet, volutpat nisl. Ut et turpis non nunc maximus
-              mollis a vitae tortor. Pellentesque mattis risus ac quam laoreet
-              cursus. Praesent suscipit orci neque, vestibulum tincidunt augue
-              tincidunt non. Duis consequat mattis tortor vitae mattis.
+              nisi gravida.
             </p>
           </Col>
         </Row>
