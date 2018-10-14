@@ -9,10 +9,11 @@ import { Input, FormBtn } from "../../components/Form";
 import Card from "../../components/Card";
 import "./Participant.css";
 import background from "./banner3.jpg";
-import "./Participant.css";
+import { FormGroup, Label, Form } from "reactstrap";
 
 class Participant extends Component {
   state = {
+    dropdownOpen: false,
     participant: [],
     firstName: "",
     lastName: "",
@@ -23,6 +24,12 @@ class Participant extends Component {
     birthday: ""
     // email:"",
     // password:""
+  };
+
+  toggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
   };
 
   componentDidMount() {
@@ -82,6 +89,7 @@ class Participant extends Component {
         .catch(err => console.log(err));
     }
   };
+
   render() {
     return (
       <div>
@@ -96,8 +104,10 @@ class Participant extends Component {
             }}
           >
             <Row>
-              <Col size="md-6" stytle="padding-top: 20px">
-                <form>
+              <Col size="md-6" style={{ paddingTop: "20px" }}>
+                <Form>
+                  <h1 className="text-center">Add Participant</h1>
+                  <hr />
                   <Input
                     value={this.state.firstName}
                     onChange={this.handleInputChange}
@@ -110,7 +120,14 @@ class Participant extends Component {
                     name="lastName"
                     placeholder="Last name (required)"
                   />
-                  <div className="form-group">
+                  <Input
+                    value={this.state.nickName}
+                    onChange={this.handleInputChange}
+                    name="nickName"
+                    placeholder="Nickname (optional)"
+                  />
+
+                  <div className="form-group inline">
                     Select your role:{" "}
                     <select
                       value={this.state.role}
@@ -124,43 +141,64 @@ class Participant extends Component {
                     </select>
                   </div>
 
-                  <Input
-                    value={this.state.nickName}
-                    onChange={this.handleInputChange}
-                    name="nickName"
-                    placeholder="Nickname (optional)"
-                  />
                   <div className="form-group">
-                    Select your gender:
+                    Select:{" "}
                     <select
                       value={this.state.gender}
                       onChange={this.handleInputChange}
                       name="gender"
-                      placeholder="Select Gender"
                     >
+                      <option className="value default selected disabled">
+                        Select
+                      </option>
                       <option value="female">Female</option>
                       <option value="male">Male</option>
                       <option value="other">Other</option>
                     </select>
                   </div>
 
+                  {/* <ButtonDropdown
+                    isOpen={this.state.dropdownOpen}
+                    toggle={this.toggle}
+                  >
+                    <DropdownToggle>Select:</DropdownToggle>
+                    <DropdownMenu
+                      value={this.state.gender}
+                      onChange={this.handleInputChange}
+                      name="gender"
+                      placeholder="Select Gender"
+                    >
+                      <DropdownItem>Female</DropdownItem>
+                      <DropdownItem>Male</DropdownItem>
+                      <DropdownItem>Other</DropdownItem>
+                    </DropdownMenu>
+                  </ButtonDropdown> */}
+
                   <Input
                     value={this.state.phone}
                     onChange={this.handleInputChange}
                     name="phone"
+                    type="number"
                     placeholder="Phone Number"
                   />
 
-                  <Input
-                    value={this.state.birthday}
-                    onChange={this.handleInputChange}
-                    name="birthday"
-                    placeholder="Birthday (mm/dd/yy)"
-                  />
+                  <FormGroup>
+                    <Label for="birthday">Date of Birth</Label>
+                    <Input
+                      value={this.state.birthday}
+                      onChange={this.handleInputChange}
+                      type="date"
+                      name="birthday"
+                      id="birthday"
+                      placeholder="date placeholder"
+                    />
+                  </FormGroup>
+
                   {/* <Input
                     value={this.state.email}
                     onChange={this.handleInputChange}
                     name="email"
+                    type="email"
                     placeholder="Email (required)"
                   />
 
@@ -172,21 +210,21 @@ class Participant extends Component {
                   /> */}
 
                   <FormBtn
+                    className="mt-5"
+                    block
                     disabled={
-                      !(
-                        this.state.firstName &&
-                        this.state.lastName &&
-                        this.state.role &&
-                        this.state.gender &&
-                        this.state.phone &&
-                        this.state.birthday
-                      )
+                      this.state.firstName &&
+                      this.state.lastName &&
+                      this.state.role &&
+                      this.state.gender &&
+                      this.state.phone &&
+                      this.state.birthday
                     }
                     onClick={this.handleFormSubmit}
                   >
                     Submit
                   </FormBtn>
-                </form>
+                </Form>
               </Col>
               <Col size="md-6 sm-12">
                 {console.log(this.state.participant)}
@@ -216,7 +254,7 @@ class Participant extends Component {
                     ))}
                   </List>
                 ) : (
-                  <h3>
+                  <h3 className="text-center">
                     Who is going with me?
                     <Card />
                   </h3>
