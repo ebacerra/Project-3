@@ -14,9 +14,15 @@ import "./Participant.css";
 class Participant extends Component {
   state = {
     participant: [],
-    title: "",
-    author: "",
-    synopsis: ""
+    firstName: "",
+    lastName: "",
+    role: "",
+    nickName: "",
+    gender: "",
+    phone: "",
+    birthday: ""
+    // email:"",
+    // password:""
   };
 
   componentDidMount() {
@@ -28,9 +34,13 @@ class Participant extends Component {
       .then(res =>
         this.setState({
           participant: res.data,
-          title: "",
-          author: "",
-          synopsis: ""
+          firstName: "",
+          lastName: "",
+          role: "admin",
+          nickName: "",
+          gender: "female",
+          phone: "",
+          birthday: ""
         })
       )
       .catch(err => console.log(err));
@@ -51,11 +61,22 @@ class Participant extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveParticipant({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
+    if (
+      this.state.firstName &&
+      this.state.lastName &&
+      this.state.role &&
+      this.state.gender &&
+      this.state.phone &&
+      this.state.birthday
+    ) {
+      API.createParticipant({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        role: this.state.role,
+        nickName: this.state.nickName,
+        gender: this.state.gender,
+        phone: this.state.phone,
+        birthday: this.state.birthday
       })
         .then(res => this.loadParticipant())
         .catch(err => console.log(err));
@@ -78,51 +99,65 @@ class Participant extends Component {
               <Col size="md-6" stytle="padding-top: 20px">
                 <form>
                   <Input
-                    value={this.state.firstname}
+                    value={this.state.firstName}
                     onChange={this.handleInputChange}
-                    name="firstname"
+                    name="firstName"
                     placeholder="First name (required)"
                   />
                   <Input
-                    value={this.state.lasttname}
+                    value={this.state.lastName}
                     onChange={this.handleInputChange}
-                    name="lasttname"
+                    name="lastName"
                     placeholder="Last name (required)"
                   />
-                  <Input
-                    value={this.state.whoareyou}
-                    onChange={this.handleInputChange}
-                    name="whoareyou"
-                    placeholder="Who are you?(required)"
-                  />
+                  <div className="form-group">
+                    Select your role:{" "}
+                    <select
+                      value={this.state.role}
+                      onChange={this.handleInputChange}
+                      name="role"
+                      placeholder="Who are you?(required)"
+                    >
+                      <option value="admin">Admin</option>
+                      <option value="local">Local</option>
+                      <option value="visitor">Visitor</option>
+                    </select>
+                  </div>
 
                   <Input
-                    value={this.state.Nickname}
+                    value={this.state.nickName}
                     onChange={this.handleInputChange}
-                    name="Nickname"
+                    name="nickName"
                     placeholder="Nickname (optional)"
                   />
-                  <Input
-                    value={this.state.Selectgender}
-                    onChange={this.handleInputChange}
-                    name="Selectgender"
-                    placeholder="Select Gender"
-                  />
+                  <div className="form-group">
+                    Select your gender:
+                    <select
+                      value={this.state.gender}
+                      onChange={this.handleInputChange}
+                      name="gender"
+                      placeholder="Select Gender"
+                    >
+                      <option value="female">Female</option>
+                      <option value="male">Male</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
 
                   <Input
-                    value={this.state.Phonenumber}
+                    value={this.state.phone}
                     onChange={this.handleInputChange}
-                    name="Phonenumber"
+                    name="phone"
                     placeholder="Phone Number"
                   />
 
                   <Input
-                    value={this.state.Birthday}
+                    value={this.state.birthday}
                     onChange={this.handleInputChange}
-                    name="Birthday"
-                    placeholder="mm/dd/yy"
+                    name="birthday"
+                    placeholder="Birthday (mm/dd/yy)"
                   />
-                  <Input
+                  {/* <Input
                     value={this.state.email}
                     onChange={this.handleInputChange}
                     name="email"
@@ -134,10 +169,19 @@ class Participant extends Component {
                     onChange={this.handleInputChange}
                     name="password"
                     placeholder="Password (required)"
-                  />
+                  /> */}
 
                   <FormBtn
-                    disabled={!(this.state.firstname && this.state.lastname)}
+                    disabled={
+                      !(
+                        this.state.firstName &&
+                        this.state.lastName &&
+                        this.state.role &&
+                        this.state.gender &&
+                        this.state.phone &&
+                        this.state.birthday
+                      )
+                    }
                     onClick={this.handleFormSubmit}
                   >
                     Submit
@@ -151,7 +195,9 @@ class Participant extends Component {
                     {this.state.participant.map(participant => (
                       <ListItem key={participant._id}>
                         <Link to={"/participant/" + participant._id}>
-                          <strong>{participant.firstName}</strong>
+                          <strong>{`${participant.lastName}, ${
+                            participant.firstName
+                          }`}</strong>
                         </Link>
                         <DeleteBtn
                           onClick={() =>
