@@ -1,47 +1,37 @@
 import React from "react";
-import Logoutbtn from "./Logoutbtn";
+import { Redirect } from "react-router";
 import "./Nav.css";
-import {
-  Nav,
-  NavItem,
-  Dropdown,
-  DropdownItem,
-  DropdownToggle,
-  DropdownMenu,
-  NavLink
-} from "reactstrap";
+import { Nav, NavItem, NavLink, Button } from "reactstrap";
 
 class Nav1 extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    dropdownOpen: false,
+    redirect: false
+  };
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      dropdownOpen: false
-    };
-  }
+  handleLogout = () => {
+    // call api to logout, THEN set the state to true
+    this.setState({ redirect: true });
+  };
 
-  toggle() {
+  toggle = () => {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
-  }
+  };
 
   render() {
     const styles = {
       text: {
         fontSize: "20px",
-        color: "black",
-        backgroundColor: "white"
+        color: "black"
       },
       navbar: {
-        backgroundColor: "white",
         marginBottom: "35px"
       }
-      // : {
-      //   backgroundColor: "white"
-      // }
     };
+
+    if (this.state.redirect) return <Redirect to="/" />;
 
     return (
       <div class="navbar fixed-top" style={styles.navbar}>
@@ -53,7 +43,7 @@ class Nav1 extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink style={styles.text} href="/about">
-              Newsfeed
+              About
             </NavLink>
           </NavItem>
           <NavItem>
@@ -66,46 +56,30 @@ class Nav1 extends React.Component {
               Roster
             </NavLink>
           </NavItem>
-          <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle nav caret>
-              Add
-            </DropdownToggle>
-            <DropdownMenu>
-              {/* <DropdownItem header>Newsfeed</DropdownItem>
-                <DropdownItem disabled>Rooming</DropdownItem>
-                <DropdownItem>Roster</DropdownItem>
-                <DropdownItem divider /> */}
-              <DropdownItem href="/participant">
-                Add a New Participant
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <Logoutbtn />
+          <NavItem>
+            <NavLink style={styles.text} href="/newsfeed">
+              Newsfeed
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink style={styles.text} href="/participant">
+              Participant
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <Button
+              onClick={this.handleLogout}
+              className="btn1"
+              outline
+              color="primary"
+            >
+              Logout
+            </Button>
+          </NavItem>
         </Nav>
       </div>
     );
   }
 }
-
-//   // <nav>
-
-//   //     <div className="navbar" id="navbargroup" herf="/">
-//   //     <div className="logoname">
-//   //     <p id="logo">
-//   //     Flashii
-//   //   </p>
-
-//   //     </div>
-
-//   //     <a href="#">Newsfeed</a>
-//   //     <a href="#">Rooming</a>
-//   //     <a href="#">Roster</a>
-
-//   //         <a href="#">Add New Participant</a>
-//   //         <button type="button" class="btn btn-outline-primary">Logout</button>
-
-//   // </div>
-
-// </nav>
 
 export default Nav1;

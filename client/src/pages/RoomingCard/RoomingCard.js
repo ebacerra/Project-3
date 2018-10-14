@@ -20,7 +20,7 @@ const RoomingCard = props => {
             <Col className="sm">
               <Row>
                 <Col xs="12" md="6">
-                  <Card className="assignRoommb-5 mt-5">
+                  <Card className="assignRoom mb-5 mt-5">
                     <CardBody style={{ maxWidth: 1000 }}>
                       <h3 className="text-center">Room #</h3>
                       <Row className="align-items-center">
