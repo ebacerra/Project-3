@@ -163,7 +163,6 @@ class Participant extends Component {
                   <h3>
                     Who is going with me?
                     <Card />
-                    <Card />
                   </h3>
                 )}
               </Col>
