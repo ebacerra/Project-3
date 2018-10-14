@@ -8,16 +8,13 @@
   font-family: "Numans", sans-serif;
 }
 
-.loginCard {
-  color: #fff;
-}
-
 .container {
   height: 100%;
   align-content: center;
 }
 
-.card {
+.loginCard {
+  color: #fff;
   height: 400px;
   margin-top: auto;
   margin-bottom: auto;

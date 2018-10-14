@@ -3,9 +3,9 @@
   background-position: center;
   background-clip: content-box;
   border: 6px solid white;
-  height: 200px;
-  width: 400px;
-  box-shadow: 0 3px 6px gray, 0 3px 6px rgba(0,0,0,0.23);
+  height: 300px;
+  width: 500px;
+  box-shadow: 0 3px 6px gray, 0 3px 6px rgba(0, 0, 0, 0.23);
   position: relative;
   margin: 0 auto;
   margin-top: 30px;
