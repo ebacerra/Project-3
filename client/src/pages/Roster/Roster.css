@@ -1,4 +1,4 @@
-.roomingcard-container {
+.roster-container {
   height: 100%;
 }
 
@@ -8,4 +8,8 @@
   float: center;
   width: 100%;
   position: center;
+}
+
+.rosterCard {
+  width: 50%;
 }
