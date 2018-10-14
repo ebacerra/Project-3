@@ -4,23 +4,49 @@ module.exports = {
   findAll: function (req, res) {
     db.Participant.find()
       .sort({ lastName: 1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .populate({
+        path: 'room'
+      })
+      .exec(function (err, dbModel) {
+        if (!err) {
+          res.json(dbModel)
+        } else {
+          res.status(422).json(err)
+        }
+      });
   },
   findById: function (req, res) {
     db.Participant.findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .populate({
+        path: 'room'
+      })
+      .exec(function (err, dbModel) {
+        if (!err) {
+          res.json(dbModel)
+        } else {
+          res.status(422).json(err)
+        }
+      });
   },
   create: function (req, res) {
     db.Participant.create(req.body)
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        this.assignRooms(req, res);
+      })
       .catch(err => res.status(422).json(err));
   },
   update: function (req, res) {
     db.Participant.findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .populate({
+        path: 'room'
+      })
+      .exec(function (err, dbModel) {
+        if (!err) {
+          res.json(dbModel)
+        } else {
+          res.status(422).json(err)
+        }
+      });
   },
   remove: function (req, res) {
     db.Participant.findById({ _id: req.params.id })
@@ -29,66 +55,83 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   assignRooms: function (req, res) {
-    let gender = req.params.gender;
-    db.Participant.find({ gender: gender })
+
+    assignRoomsByGender('female');
+    assignRoomsByGender('male');
+    db.Participant.find({})
       .then(dbParticipants => {
-        let n = dbParticipants.length;
-        let numRooms = Math.floor(n / CAPACITY);
-        if (n % CAPACITY > 0) {
-          numRooms++;
-        }
-        let visitors = [];
-        let locals = [];
-        console.log(`Gender: ${gender}, visitors: ${visitors.length}, locals: ${locals.length}`);
-        //separate locals from visitors in two arrays
-        dbParticipants.forEach(participant => {
-          switch (participant.role) {
-            case 'visitor':
-            case 'admin':
-              visitors.push(participant);
-              break;
-            case 'local':
-              locals.push(participant);
-              break;
-            default:
-              break;
+        db.Room.find(dbRooms => {
+          let result = {
+            participants: dbParticipants,
+            rooms: dbRooms
           }
-        });
-        console.log(`Rooms: ${numRooms} visitors: ${visitors.length} locals: ${locals.length}`);
-        let rooms = [];
-        let dbRooms;
-        //create rooms in the database
-        for (let i = 0; i < numRooms; i++) {
-          rooms.push({ roomNumber: i, gender: gender, participants: [] });
-        }
-        db.Room.deleteMany({})
-          .then(data => {
-            db.Room.create(rooms)
-              .then(data => {
-                dbRooms = data;
-                //distribute participants to rooms
-                distributelocals(locals, dbRooms);
-                distributeVisitors(visitors, dbRooms);
-                outputRooms(dbRooms);
-                console.log("rooms distributed.");
-                updateRoomsDB(dbRooms, 0);
-                updateParticipantsDB(dbParticipants, 0);
-
-              })
-              .catch(err => {
-                throw err;
-              });
-          })
-          .catch(err => {
-            throw err;
-          });
-
-
+          res.status(200).json(result);
+        })
       })
       .catch(err => res.status(422).json(err));
-
   }
-};
+
+}
+
+function assignRoomsByGender(gender) {
+  //start
+  db.Participant.find({ gender: gender })
+    .then(dbParticipants => {
+      let n = dbParticipants.length;
+      let numRooms = Math.floor(n / CAPACITY);
+      if (n % CAPACITY > 0) {
+        numRooms++;
+      }
+      let visitors = [];
+      let locals = [];
+      //separate locals from visitors in two arrays
+      dbParticipants.forEach(participant => {
+        switch (participant.role) {
+          case 'visitor':
+          case 'admin':
+            visitors.push(participant);
+            break;
+          case 'local':
+            locals.push(participant);
+            break;
+          default:
+            break;
+        }
+      });
+      console.log(`Rooms: ${numRooms} visitors: ${visitors.length} locals: ${locals.length}`);
+      let rooms = [];
+      let dbRooms;
+      //create rooms in the database
+      for (let i = 0; i < numRooms; i++) {
+        rooms.push({ roomNumber: i, gender: gender, participants: [] });
+      }
+      db.Room.deleteMany({ gender: gender })
+        .then(data => {
+          db.Room.create(rooms)
+            .then(data => {
+              dbRooms = data;
+              //distribute participants to rooms
+              distributelocals(locals, dbRooms);
+              distributeVisitors(visitors, dbRooms);
+              outputRooms(dbRooms);
+              console.log(`${gender} rooms distributed for`);
+              updateRoomsDB(dbRooms, 0);
+              updateParticipantsDB(dbParticipants, 0);
+
+            })
+            .catch(err => {
+              throw err;
+            });
+        })
+        .catch(err => {
+          throw err;
+        });
+
+
+    })
+    .catch(err => res.status(422).json(err));
+  //end
+}
 
 function distributelocals(locals, rooms) {
   console.log(`Inside distribute locals Locals: ${locals} rooms: ${rooms.length}`);
@@ -191,3 +234,4 @@ function updateParticipantsDB(participants, curIndex) {
       throw err;
     });
 }
+

@@ -8,7 +8,7 @@ router
   .post(participantController.create);
 
 router
-  .route("/assignRooms/:gender")
+  .route("/assignRooms")
   .post(participantController.assignRooms);
 
 

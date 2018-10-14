@@ -8,7 +8,10 @@ const participantSchema = new Schema({
   gender: { type: String, required: true },
   phone: { type: String, required: true },
   role: { type: String, required: true },
-  birthday: { type: Date, default: Date.now },
+  birthday: { type: String, required: false },
+  email: { type: String, required: false },
+  password: { type: String, required: false },
+  pic: { type: String, required: false },
   room: {
     type: Schema.Types.ObjectId,
     ref: "Room"
