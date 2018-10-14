@@ -4,13 +4,29 @@ module.exports = {
     findAll: function (req, res) {
         db.Room.find(req.query)
             .sort({ roomNumber: 1 })
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
+            .populate({
+                path: 'participants'
+            })
+            .exec(function (err, dbModel) {
+                if (!err) {
+                    res.json(dbModel)
+                } else {
+                    res.status(422).json(err)
+                }
+            });
     },
     findById: function (req, res) {
         db.Room.findById(req.params.id)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
+            .populate({
+                path: 'participants'
+            })
+            .exec(function (err, dbModel) {
+                if (!err) {
+                    res.json(dbModel)
+                } else {
+                    res.status(422).json(err)
+                }
+            });
     },
     create: function (req, res) {
         db.Room.create(req.body)
