@@ -31,12 +31,16 @@ class Nav1 extends React.Component {
     const styles = {
       text: {
         fontSize: "20px",
-        color: "black"
+        color: "black",
+        backgroundColor: "white"
       },
       navbar: {
-        // backgroundColor: "#ffc312",
+        backgroundColor: "white",
         marginBottom: "35px"
       }
+      // : {
+      //   backgroundColor: "white"
+      // }
     };
 
     return (
