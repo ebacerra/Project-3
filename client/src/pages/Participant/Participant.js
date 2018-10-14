@@ -195,9 +195,17 @@ class Participant extends Component {
                     {this.state.participant.map(participant => (
                       <ListItem key={participant._id}>
                         <Link to={"/participant/" + participant._id}>
-                          <strong>{`${participant.lastName}, ${
-                            participant.firstName
-                          }`}</strong>
+                          <h1>
+                            <strong>{`${participant.lastName}, ${
+                              participant.firstName
+                            }`}</strong>
+                          </h1>
+                          <h4>
+                            Role:{" "}
+                            <span class="badge badge-secondary">
+                              {participant.role}
+                            </span>
+                          </h4>
                         </Link>
                         <DeleteBtn
                           onClick={() =>
