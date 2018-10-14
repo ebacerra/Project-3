@@ -105,7 +105,6 @@ function distributelocals(locals, rooms) {
 }
 
 function distributeVisitors(visitors, rooms) {
-  //let roomsClone = deepCloneArrayRooms(rooms);
   let visitorsClone = shallowCloneArr(visitors);
   rooms.forEach(room => {
     let space = CAPACITY - room.participants.length;
