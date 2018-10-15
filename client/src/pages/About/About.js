@@ -15,19 +15,25 @@ const About = () => (
         <Row>
           <Col size="md-12">
             <br />
+   <br />
+   <br />
+   <br />
             <h3 className="text-center">Who we are?</h3>
           </Col>
         </Row>
         <Row>
           <Col size="md-12">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              aliquet diam tortor, id consequat mauris ullamcorper eu. Orci
-              varius natoque penatibus et magnis dis parturient montes, nascetur
-              ridiculus mus. Pellentesque et dui id justo finibus sollicitudin
-              at et metus. Ut feugiat tellus nec metus commodo, sed suscipit
-              nisi gravida.
-            </p>
+            
+             <p>SnapSight© is a tool for trip organizers.</p>
+ <br />
+<p>All travel organizers face logistical challenges: accommodations, activities, tours, providing food, and dietary requirements -all for multiple locations!</p>
+ <br />
+<p>Offer your travelers more.</p>
+ <br />
+<p>See the world through the eyes of a locals and travel with the aim of making meaningful connections to the people that make a place special.</p>
+ <br />
+<p>Sort trip participants with locals.  SnapSight’s proprietary algorithm prioritizes diversity: mixing with locals and other participants.</p>
+            
           </Col>
         </Row>
       </Container>

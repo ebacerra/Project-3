@@ -9,6 +9,7 @@ module.exports = {
             })
             .exec(function (err, dbModel) {
                 if (!err) {
+                    // This line wasn't there
                     res.json(dbModel)
                 } else {
                     res.status(422).json(err)
