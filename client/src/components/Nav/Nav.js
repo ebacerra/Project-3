@@ -58,11 +58,11 @@ class Nav1 extends React.Component {
               Roster
             </NavLink>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <NavLink style={styles.text} href="/newsfeed">
               Newsfeed
-            </NavLink>
-          </NavItem>
+            </NavLink> */}
+          {/* </NavItem> */} 
           <NavItem>
             <NavLink style={styles.text} href="/participant">
               Participant
