@@ -9,7 +9,7 @@ import { Input, FormBtn } from "../../components/Form";
 import Card from "../../components/Card";
 import "./Participant.css";
 import background from "./banner3.jpg";
-import { FormGroup, Label, Form } from "reactstrap";
+import { FormGroup, Label, Form, FormText } from "reactstrap";
 
 class Participant extends Component {
   state = {
@@ -21,7 +21,8 @@ class Participant extends Component {
     nickName: "",
     gender: "",
     phone: "",
-    birthday: ""
+    birthdate: "",
+    pic: ""
     // email:"",
     // password:""
   };
@@ -47,7 +48,7 @@ class Participant extends Component {
           nickName: "",
           gender: "female",
           phone: "",
-          birthday: ""
+          birthdate: ""
         })
       )
       .catch(err => console.log(err));
@@ -74,7 +75,7 @@ class Participant extends Component {
       this.state.role &&
       this.state.gender &&
       this.state.phone &&
-      this.state.birthday
+      this.state.birthdate
     ) {
       API.createParticipant({
         firstName: this.state.firstName,
@@ -83,7 +84,7 @@ class Participant extends Component {
         nickName: this.state.nickName,
         gender: this.state.gender,
         phone: this.state.phone,
-        birthday: this.state.birthday
+        birthdate: this.state.birthdate
       })
         .then(res => this.loadParticipant())
         .catch(err => console.log(err));
@@ -126,7 +127,11 @@ class Participant extends Component {
                     name="nickName"
                     placeholder="Nickname (optional)"
                   />
-
+                  <FormGroup>
+                    <Label for="pic">Upload participant photo</Label>
+                    <Input type="file" name="file" />
+                    <FormText color="muted"></FormText>
+                  </FormGroup>
                   <div className="form-group inline">
                     Select your role:{" "}
                     <select
@@ -183,13 +188,13 @@ class Participant extends Component {
                   />
 
                   <FormGroup>
-                    <Label for="birthday">Date of Birth</Label>
+                    <Label for="birthdate">Date of Birth</Label>
                     <Input
-                      value={this.state.birthday}
+                      value={this.state.birthdate}
                       onChange={this.handleInputChange}
                       type="date"
-                      name="birthday"
-                      id="birthday"
+                      name="birthdate"
+                      id="birthdate"
                       placeholder="date placeholder"
                     />
                   </FormGroup>
@@ -218,7 +223,7 @@ class Participant extends Component {
                       this.state.role &&
                       this.state.gender &&
                       this.state.phone &&
-                      this.state.birthday
+                      this.state.birthdate
                     }
                     onClick={this.handleFormSubmit}
                   >
@@ -236,7 +241,7 @@ class Participant extends Component {
                           <h1>
                             <strong>{`${participant.lastName}, ${
                               participant.firstName
-                            }`}</strong>
+                              }`}</strong>
                           </h1>
                           <h4>
                             Role:{" "}
@@ -254,11 +259,11 @@ class Participant extends Component {
                     ))}
                   </List>
                 ) : (
-                  <h3 className="text-center">
-                    Who is going with me?
+                    <h3 className="text-center">
+                      Who is going with me?
                     <Card />
-                  </h3>
-                )}
+                    </h3>
+                  )}
               </Col>
             </Row>
           </Container>
