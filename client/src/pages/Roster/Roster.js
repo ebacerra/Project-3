@@ -82,7 +82,7 @@ class Roster extends React.Component {
           >
             <Row>
               <Col className="sm">
-                <Row style={{ maxHeight: 320, maxWidth: 1000 }}>
+                <Row style={{ maxHeight: 50000, maxWidth: 8000 }}>
                   <Col xs="12" md="6">
                     {this.renderParticipants()}
                   </Col>
