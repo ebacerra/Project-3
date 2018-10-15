@@ -16,7 +16,7 @@ class RoomingCard extends React.Component {
         let rooms = res.data;
         this.setState({ rooms });
       });
-    })
+    });
   }
 
   renderRooms = () => {
@@ -100,14 +100,13 @@ class RoomingCard extends React.Component {
               }}
             >
               <Col className="sm">
-
-                <Row style={{ maxHeight:9000,maxWidth: 8000 }}>
-                  <div className='room-cards-container'>
-
+                <Row style={{ maxHeight: 9000, maxWidth: 8000 }}>
                   <div className="room-cards-container">
-                    {/* {console.log(this.state.rooms)} */}
+                    <div className="room-cards-container">
+                      {/* {console.log(this.state.rooms)} */}
 
-                    {this.renderRooms()}
+                      {this.renderRooms()}
+                    </div>
                   </div>
                 </Row>
               </Col>
