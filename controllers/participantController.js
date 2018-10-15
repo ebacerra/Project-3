@@ -55,7 +55,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   assignRooms: function (req, res) {
-
+    console.log('Inside assignRooms');
     assignRoomsByGender('female');
     assignRoomsByGender('male');
     db.Participant.find({})
