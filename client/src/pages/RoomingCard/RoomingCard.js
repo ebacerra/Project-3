@@ -101,9 +101,12 @@ class RoomingCard extends React.Component {
             >
               <Col className="sm">
 
-                <Row style={{ maxHeight: 320 }}>
+                <Row style={{ maxHeight:9000,maxWidth: 8000 }}>
+                  <div className='room-cards-container'>
+
                   <div className="room-cards-container">
                     {/* {console.log(this.state.rooms)} */}
+
                     {this.renderRooms()}
                   </div>
                 </Row>
