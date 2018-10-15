@@ -11,10 +11,13 @@ class RoomingCard extends React.Component {
   };
 
   componentDidMount() {
-    API.getRooms().then(res => {
-      let rooms = res.data;
-      this.setState({ rooms });
-    });
+    API.assignRooms().then(res => {
+      API.getRooms().then(res => {
+        let rooms = res.data;
+        this.setState({ rooms });
+      });
+    })
+
   }
 
   renderRooms = () => {
