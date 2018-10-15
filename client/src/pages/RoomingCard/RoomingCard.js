@@ -81,7 +81,7 @@ class RoomingCard extends React.Component {
               margin: "15px"
             }}>
               <Col className="sm">
-                <Row style={{ maxHeight: 320 }}>
+                <Row style={{ maxHeight:9000 }}>
                   <div className='room-cards-container'>
                     {this.renderRooms()}
                   </div>
