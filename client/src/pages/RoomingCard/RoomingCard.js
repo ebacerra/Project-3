@@ -3,26 +3,39 @@ import { Card, CardImg, CardBody, Container, Row, Col } from "reactstrap";
 import "./RoomingCard.css";
 import Nav from "../../components/Nav";
 import background from "./banner3.jpg";
+import API from "../../utils/API";
 
-const RoomingCard = props => {
-  return (
-    <div>
-      <Nav />
-      <div className="roomingcardContainer">
-        <Container
-          style={{
-            backgroundImage: `url(${background})`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat"
-          }}
-        >
-          <Row>
-            <Col className="sm">
-              <Row>
-                <Col xs="12" md="6">
-                  <Card className="assignRoom mb-5 mt-5">
-                    <CardBody style={{ maxWidth: 1000 }}>
-                      <h3 className="text-center">Room #</h3>
+class RoomingCard extends React.Component {
+  state = {
+    rooms: []
+  };
+
+  componentDidMount() {
+    API.getRooms().then(res => {
+      let rooms = res.data;
+      this.setState({ rooms });
+    });
+  }
+
+  renderRooms = () => {
+    return this.state.rooms.map((room, idx) => {
+      return (
+        <div className="room-card" key={room.roomNumber}>
+          <Col className="sm">
+            <Row>
+              <Col xs="12" md="6">
+                <Card className="assignRoom mb-5 mt-5">
+                  <CardBody style={{ maxWidth: 1000 }}>
+                    <div className="room-number-container">
+                      <div className="room-number">
+                        <h3 className="text-center">{`Room : ${room.roomNumber}`}</h3>
+                      </div>
+
+                      <button type="button" class={`btn btn-${room.gender === "male" ? "primary" : "warning female-badge"}`}>
+                        Gender <span class="badge badge-light">{room.gender}</span>
+                      </button>
+                    </div>
+                    {room.participants.map(participant => (
                       <Row className="align-items-center">
                         <Col
                           lg="3"
@@ -31,76 +44,55 @@ const RoomingCard = props => {
                         >
                           <CardImg
                             className="d-block mx-auto rounded-circle img-fluid"
-                            src="http://api.randomuser.me/portraits/women/73.jpg"
-                            alt="Image of Participant"
+                            src={participant.pic}
+                            alt={`Image of${participant.firstName}`}
                           />
                         </Col>
                         <Col>
-                          <p style={{ display: "inline" }}>Last Name,</p>
-                          <p style={{ display: "inline" }}> First Name </p>
+                          <p style={{ display: "inline" }}>{`${participant.lastName}, `}</p>
+                          <p style={{ display: "inline" }}> {`${participant.firstName}`} </p>
                         </Col>
                       </Row>
-                      <Row className="align-items-center">
-                        <Col
-                          lg="3"
-                          xs="3"
-                          className="mx-auto text-nowrap text-center px-2 mt-2 mb-2"
-                        >
-                          <CardImg
-                            className="d-block mx-auto rounded-circle img-fluid"
-                            src="http://api.randomuser.me/portraits/women/73.jpg"
-                            alt="Image of Participant"
-                          />
-                        </Col>
-                        <Col>
-                          <p style={{ display: "inline" }}>Last Name,</p>
-                          <p style={{ display: "inline" }}> First Name </p>
-                        </Col>
-                      </Row>
-                      <Row className="align-items-center">
-                        <Col
-                          lg="3"
-                          xs="3"
-                          className="mx-auto text-nowrap text-center px-2 mt-2 mb-2"
-                        >
-                          <CardImg
-                            className="d-block mx-auto rounded-circle img-fluid"
-                            src="http://api.randomuser.me/portraits/women/73.jpg"
-                            alt="Image of Participant"
-                          />
-                        </Col>
-                        <Col>
-                          <p style={{ display: "inline" }}>Last Name,</p>
-                          <p style={{ display: "inline" }}> First Name </p>
-                        </Col>
-                      </Row>
-                      <Row className="align-items-center">
-                        <Col
-                          lg="3"
-                          xs="3"
-                          className="mx-auto text-nowrap text-center px-2 mt-2 mb-2"
-                        >
-                          <CardImg
-                            className="d-block mx-auto rounded-circle img-fluid"
-                            src="http://api.randomuser.me/portraits/women/73.jpg"
-                            alt="Image of Participant"
-                          />
-                        </Col>
-                        <Col>
-                          <p style={{ display: "inline" }}>Last Name,</p>
-                          <p style={{ display: "inline" }}> First Name </p>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Container>
+                    ))}
+
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Col>
+        </div>
+      )
+    })
+  }
+  render() {
+    return (
+      <div>
+        <Nav />
+        <div className="rosterContainer">
+          <div
+            className="roomingcard-container"
+            style={{
+              backgroundImage: `url(${background})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat"
+            }}
+          >
+            <Row style={{
+              margin: "15px"
+            }}>
+              <Col className="sm">
+                <Row style={{ maxHeight: 320 }}>
+                  <div className='room-cards-container'>
+                    {this.renderRooms()}
+                  </div>
+                </Row>
+              </Col>
+            </Row>
+          </div>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default RoomingCard;

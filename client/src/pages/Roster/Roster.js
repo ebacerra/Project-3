@@ -25,7 +25,7 @@ class Roster extends React.Component {
         <Card key={idx} className="mb-5 mt-5">
           <h3 className="text-center">{`${participant.lastName}, ${
             participant.firstName
-          }`}</h3>
+            }`}</h3>
           <hr />
           <CardBody>
             <Row className="align-items-center">
@@ -36,7 +36,7 @@ class Roster extends React.Component {
               >
                 <CardImg
                   className="d-block mx-auto rounded-circle img-fluid"
-                  src="http://api.randomuser.me/portraits/women/73.jpg"
+                  src={participant.pic}
                   alt="Image of Participant"
                 />
               </Col>
@@ -44,15 +44,21 @@ class Roster extends React.Component {
                 {participant.nickName && (
                   <p style={{ display: "inline" }}>{`Nickname: ${
                     participant.nickName
-                  }, `}</p>
+                    }, `}</p>
                 )}
-                {participant.birthday && (
-                  <p style={{ display: "inline" }}>
-                    {`Birthday: ${moment(participant.birthday).format(
+                {participant.role && (
+                  <p style={{ display: "block" }}>
+                    {`Role: ${participant.role}`}{" "}
+                  </p>)}
+                {participant.birthdate && (
+                  <p style={{ display: "block" }}>
+                    {`Birthday: ${moment(participant.birthdate).format(
                       "MM/DD/YYYY"
                     )}`}{" "}
-                  </p>
-                )}
+                  </p>)}
+
+
+
               </Col>
             </Row>
           </CardBody>
