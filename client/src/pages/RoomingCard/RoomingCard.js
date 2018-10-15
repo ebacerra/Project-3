@@ -13,6 +13,7 @@ class RoomingCard extends React.Component {
   componentDidMount() {
     API.getRooms().then(res => {
       let rooms = res.data;
+      // console.log(res.data);
       this.setState({ rooms });
     });
   }
@@ -28,13 +29,24 @@ class RoomingCard extends React.Component {
                   <CardBody style={{ maxWidth: 1000 }}>
                     <div className="room-number-container">
                       <div className="room-number">
-                        <h3 className="text-center">{`Room : ${room.roomNumber}`}</h3>
+                        <h3 className="text-center">{`Room : ${
+                          room.roomNumber
+                        }`}</h3>
                       </div>
 
-                      <button type="button" class={`btn btn-${room.gender === "male" ? "primary" : "warning female-badge"}`}>
-                        Gender <span class="badge badge-light">{room.gender}</span>
+                      <button
+                        type="button"
+                        class={`btn btn-${
+                          room.gender === "male"
+                            ? "primary"
+                            : "warning female-badge"
+                        }`}
+                      >
+                        Gender{" "}
+                        <span class="badge badge-light">{room.gender}</span>
                       </button>
                     </div>
+
                     {room.participants.map(participant => (
                       <Row className="align-items-center">
                         <Col
@@ -49,21 +61,25 @@ class RoomingCard extends React.Component {
                           />
                         </Col>
                         <Col>
-                          <p style={{ display: "inline" }}>{`${participant.lastName}, `}</p>
-                          <p style={{ display: "inline" }}> {`${participant.firstName}`} </p>
+                          <p style={{ display: "inline" }}>{`${
+                            participant.lastName
+                          }, `}</p>
+                          <p style={{ display: "inline" }}>
+                            {" "}
+                            {`${participant.firstName}`}{" "}
+                          </p>
                         </Col>
                       </Row>
                     ))}
-
                   </CardBody>
                 </Card>
               </Col>
             </Row>
           </Col>
         </div>
-      )
-    })
-  }
+      );
+    });
+  };
   render() {
     return (
       <div>
@@ -77,12 +93,15 @@ class RoomingCard extends React.Component {
               backgroundRepeat: "no-repeat"
             }}
           >
-            <Row style={{
-              margin: "15px"
-            }}>
+            <Row
+              style={{
+                margin: "15px"
+              }}
+            >
               <Col className="sm">
                 <Row style={{ maxHeight: 320 }}>
-                  <div className='room-cards-container'>
+                  <div className="room-cards-container">
+                    {/* {console.log(this.state.rooms)} */}
                     {this.renderRooms()}
                   </div>
                 </Row>
